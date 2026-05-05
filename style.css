@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #0B0C10;
   --card: #13141A;
   --border: #1E2130;
@@ -608,7 +608,18 @@ textarea.form-input { resize:none; }
 .github-card-img:hover {
   border-color: var(--primary);
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(108,63,224,0.2);
+  box-shadow: 0 10px 30px rgba(108,63,224,0.25);
+}
+
+@media (max-width: 768px) {
+  .github-cards { 
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+  }
+  .github-card-img {
+    height: auto;
+    margin-bottom: 1rem;
+  }
 }
 
 .github-langs .github-card-img {
@@ -683,8 +694,8 @@ textarea.form-input { resize:none; }
 }
 
 /* PROJECT IMAGE: FLUX SOLUTIONS */
-.p-bg-flux { background-position: 95% 5% !important; background-size: 180% !important;
-  background: linear-gradient(rgba(11, 12, 16, 0.15), rgba(11, 12, 16, 0.15)), url("./flux-solutions.png") !important;
+.p-bg-flux {
+  background: linear-gradient(rgba(11, 12, 16, 0.1), rgba(11, 12, 16, 0.1)), url("flux-solutions.png");
   background-size: cover;
   background-position: center;
 }
