@@ -333,15 +333,23 @@ textarea.form-input { resize:none; }
 @media (max-width:768px) {
   .nav-menu {
     position:fixed; top:-120%; left:0; width:100%;
-    background:var(--bg); border-bottom:1px solid var(--border);
-    flex-direction:column; align-items:flex-start;
-    padding:2rem 1.5rem; gap:2rem; transition:top .4s ease;
+    background:rgba(11, 12, 16, 0.96); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom:1px solid var(--border);
+    flex-direction:column; 
+    align-items:center; 
+    text-align:center;
+    padding:3rem 1.5rem; gap:1.5rem; transition:top .5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99;
   }
   .nav-menu.show-menu { 
     top:5rem; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   }
-  .nav-list { flex-direction:column; gap:1.5rem; }
+  .nav-list { flex-direction:column; gap:1.75rem; width: 100%; }
+  .nav-link { font-size: 1.1rem; width: 100%; display: block; }
+  .nav-menu .btn { width: 100%; max-width: 280px; justify-content: center; }
   .nav-toggle { display:block; }
   .hero-name { font-size:2.8rem; }
   .hero-role { font-size:1.8rem; }
