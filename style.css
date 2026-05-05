@@ -337,7 +337,10 @@ textarea.form-input { resize:none; }
     flex-direction:column; align-items:flex-start;
     padding:2rem 1.5rem; gap:2rem; transition:top .4s ease;
   }
-  .nav-menu.show-menu { top:5rem; }
+  .nav-menu.show-menu { 
+    top:5rem; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
   .nav-list { flex-direction:column; gap:1.5rem; }
   .nav-toggle { display:block; }
   .hero-name { font-size:2.8rem; }
@@ -612,13 +615,18 @@ textarea.form-input { resize:none; }
 }
 
 @media (max-width: 768px) {
+  .github-stats { padding-block: 4rem 2rem; }
   .github-cards { 
     grid-template-columns: 1fr;
-    padding-inline: 1rem;
+    padding-inline: 0;
+    gap: 1rem;
   }
   .github-card-img {
     height: auto;
-    margin-bottom: 1rem;
+    width: 100%;
+  }
+  .github-langs .github-card-img {
+    max-width: 100%;
   }
 }
 
@@ -738,9 +746,10 @@ textarea.form-input { resize:none; }
   }
 
   /* Improve Hero spacing */
-  .hero-name { font-size: 2.4rem; line-height: 1.2; }
-  .hero-role { font-size: 1.5rem; }
-  .hero-visual { height: 300px; }
+  .hero-name { font-size: 2.4rem; line-height: 1.2; margin-bottom: 0.5rem; }
+  .hero-role { font-size: 1.5rem; margin-bottom: 1rem; }
+  .hero-visual { height: 260px; margin-top: 2rem; }
+  .hero-btns { gap: 0.75rem; }
 
   /* Skills grid on mobile */
   .skill-grid {
