@@ -332,25 +332,38 @@ textarea.form-input { resize:none; }
 
 @media (max-width:768px) {
   .nav-menu {
-    position:fixed; top:-120%; left:0; width:100%;
-    background:rgba(11, 12, 16, 0.96); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom:1px solid var(--border);
-    flex-direction:column; 
-    align-items:center; 
-    text-align:center;
-    padding:3rem 1.5rem; gap:1.5rem; transition:top .5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: rgba(11, 12, 16, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    transition: right .4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border-left: 1px solid var(--border);
   }
-  .nav-menu.show-menu { 
-    top:5rem; 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  .nav-menu.show-menu { right: 0; }
+  .nav-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--white);
+    cursor: pointer;
+    transition: var(--t);
   }
-  .nav-list { flex-direction:column; gap:1.75rem; width: 100%; }
-  .nav-link { font-size: 1.1rem; width: 100%; display: block; }
-  .nav-menu .btn { width: 100%; max-width: 280px; justify-content: center; }
-  .nav-toggle { display:block; }
+  .nav-close:hover { color: var(--primary); }
+  .nav-list { flex-direction: column; gap: 2rem; align-items: center; }
+  .nav-link { font-size: 1.2rem; font-weight: 600; }
+  .nav-menu .btn { width: 100%; max-width: 260px; margin-top: auto; }
+  .nav-toggle { display: block; }
   .hero-name { font-size:2.8rem; }
   .hero-role { font-size:1.8rem; }
   .ring-2, .ring-3 { display:none; }
@@ -360,6 +373,7 @@ textarea.form-input { resize:none; }
   .form-row { grid-template-columns:1fr; }
   .section-title { font-size:1.8rem; }
   .section-header { flex-direction:column; align-items:flex-start; gap:1rem; }
+}
 }
 
 @media (max-width:480px) {
