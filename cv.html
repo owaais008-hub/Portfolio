@@ -164,6 +164,68 @@
                 padding: 10mm;
             }
         }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .page {
+                width: 100%;
+                min-height: auto;
+                padding: 24px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+
+            .item-date {
+                margin-left: 0;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .page {
+                padding: 18px 14px;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 15px;
+            }
+
+            .item-title {
+                font-size: 14px;
+            }
+
+            .summary,
+            .item-desc,
+            .sidebar-text {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 

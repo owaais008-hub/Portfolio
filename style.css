@@ -1693,14 +1693,16 @@ textarea.form-input {
     padding-block: 5rem 3rem;
   }
 
+  /* ---- NAVBAR ---- */
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 75%;
+    width: 80%;
+    max-width: 320px;
     height: 100vh;
     background: var(--card);
-    padding: 6rem 2rem;
+    padding: 5rem 2rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1708,6 +1710,7 @@ textarea.form-input {
     transition: right .35s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1000;
     border-left: 1px solid var(--border);
+    overflow-y: auto;
   }
 
   .nav-menu.show-menu {
@@ -1731,11 +1734,11 @@ textarea.form-input {
   }
 
   .nav-link {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 
   .nav-actions {
-    display: none; /* Hide desktop action buttons inside nav */
+    display: none;
   }
 
   .nav-toggle-wrap {
@@ -1748,6 +1751,13 @@ textarea.form-input {
     display: block;
   }
 
+  /* ---- HERO ---- */
+  .hero {
+    padding-top: 6rem;
+    min-height: auto;
+    padding-bottom: 3rem;
+  }
+
   .hero-name {
     font-size: 2.75rem;
   }
@@ -1756,14 +1766,68 @@ textarea.form-input {
     font-size: 1.5rem;
   }
 
+  .hero-description {
+    font-size: .95rem;
+    max-width: 100%;
+  }
+
+  /* Hide floating tech icons — they cause horizontal overflow on mobile */
+  .float-icon {
+    display: none;
+  }
+
+  /* Keep hero code card but constrain it */
+  .hero-visual {
+    height: auto;
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  .hero-code {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* ---- CODE BLOCKS ---- */
+  .code-body,
+  .about-code-inner {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .code-body pre,
+  .about-code-inner pre {
+    white-space: pre;
+    min-width: max-content;
+  }
+
+  /* ---- ABOUT ---- */
+  .about-visual {
+    height: auto;
+    min-height: 240px;
+  }
+
+  .about-code-card {
+    height: auto;
+    min-height: 240px;
+  }
+
+  .about-code-inner {
+    height: auto;
+    max-height: 260px;
+  }
+
+  /* ---- SKILLS ---- */
   .skills-grid {
     grid-template-columns: 1fr;
   }
 
+  /* ---- PROJECTS ---- */
   .projects-grid {
     grid-template-columns: 1fr;
   }
 
+  /* ---- GITHUB ---- */
   .github-cards {
     grid-template-columns: 1fr;
   }
@@ -1772,15 +1836,24 @@ textarea.form-input {
     max-width: 100%;
   }
 
+  /* ---- CONTACT ---- */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-submit {
+    width: 100%;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  /* ---- FOOTER ---- */
   .footer-container {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
+  /* ---- SECTION TITLES ---- */
   .section-title {
     font-size: 1.75rem;
     margin-bottom: 2rem;
@@ -1793,11 +1866,13 @@ textarea.form-input {
     margin-bottom: 2rem;
   }
 
+  /* ---- FLOATING WIDGETS ---- */
   #terminal-box {
     width: calc(100vw - 2.5rem);
     left: 1.25rem;
+    bottom: 5.5rem;
   }
-  
+
   #chatbot-box {
     width: calc(100vw - 2.5rem);
     right: 1.25rem;
@@ -1813,7 +1888,23 @@ textarea.form-input {
     left: 1.25rem;
     bottom: 1.25rem;
   }
-  
+
+  /* Chatbot quick buttons — wrap onto multiple lines if needed */
+  .chat-quick-btns {
+    flex-wrap: wrap;
+    gap: .35rem;
+  }
+
+  .quick-btn {
+    flex: 1 1 auto;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .scrollup {
+    right: 1.25rem;
+  }
+
   .scrollup.show-scroll {
     right: 1.25rem;
     bottom: 5.5rem;
@@ -1821,8 +1912,35 @@ textarea.form-input {
 }
 
 @media (max-width: 480px) {
+  /* Tighter container on very small screens */
+  .container {
+    padding-inline: 1rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding-top: 5.5rem;
+  }
+
   .hero-name {
-    font-size: 2.2rem;
+    font-size: 2rem;
+  }
+
+  .hero-role {
+    font-size: 1.25rem;
+  }
+
+  .hero-greeting {
+    font-size: .72rem;
+  }
+
+  .hero-description {
+    font-size: .9rem;
+  }
+
+  /* Hide hero code visual entirely on tiny screens to save vertical space */
+  .hero-visual {
+    display: none;
   }
 
   .hero-btns {
@@ -1835,7 +1953,37 @@ textarea.form-input {
     justify-content: center;
   }
 
+  /* About */
+  .about-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact */
   .contact-form {
-    padding: 1.25rem;
+    padding: 1rem;
+  }
+
+  /* Section title */
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  /* Footer social icons centered */
+  .footer-col {
+    text-align: center;
+  }
+
+  .footer-col .social-icons {
+    justify-content: center;
+  }
+
+  .footer-col ul {
+    align-items: center;
+  }
+
+  /* Nav menu full width on tiny phones */
+  .nav-menu {
+    width: 100%;
+    max-width: 100%;
   }
 }
