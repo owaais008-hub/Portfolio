@@ -1,8 +1,8 @@
 /* ================================================
-   PORTFOLIO SCRIPT â€” OWAIS
-   Features: Nav, Reveal, EmailJS, Cursor Spotlight,
+   PORTFOLIO SCRIPT — OWAIS ALI
+   Features: Nav, Reveal, EmailJS, Theme Toggle,
    Text Scramble, 3D Tilt, Progress Bar, Magnetic Btns,
-   Particle Stars, Terminal Widget
+   Terminal Widget, AI Chatbot
 ================================================ */
 
 /* ===== NAV TOGGLE ===== */
@@ -75,14 +75,31 @@ window.addEventListener('scroll', () => {
 });
 
 /* ================================================
-   [H] CURSOR SPOTLIGHT
+   [T] THEME TOGGLE (LIGHT / DARK)
 ================================================ */
-const spotlight = document.getElementById('cursor-spotlight');
-document.addEventListener('mousemove', e => {
-    if (!spotlight) return;
-    spotlight.style.left = e.clientX + 'px';
-    spotlight.style.top  = e.clientY + 'px';
-});
+const themeToggleBtn = document.getElementById('theme-toggle');
+const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+
+// Get saved preference or default to dark-theme (slate)
+const savedTheme = localStorage.getItem('theme') || 'dark';
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+} else {
+    document.body.classList.remove('dark-theme');
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+}
+if (themeToggleMobileBtn) {
+    themeToggleMobileBtn.addEventListener('click', toggleTheme);
+}
 
 /* ================================================
    [D] TEXT SCRAMBLE EFFECT
@@ -90,7 +107,7 @@ document.addEventListener('mousemove', e => {
 class TextScramble {
     constructor(el) {
         this.el    = el;
-        this.chars = '!<>-_\\/[]{}â€”=+*^?#@ABCDEFabcdef0123456';
+        this.chars = '!<>-_\\/[]{}—=+*^?#@ABCDEFabcdef0123456';
         this.update = this.update.bind(this);
     }
     setText(newText) {
@@ -141,29 +158,29 @@ window.addEventListener('load', () => {
     const scrambleEl = document.getElementById('scramble-text');
     if (scrambleEl) {
         const fx = new TextScramble(scrambleEl);
-        fx.setText('Full Stack Developer');
+        fx.setText('Full Stack Engineer');
     }
 });
 
 /* ================================================
    [C] 3D TILT EFFECT ON CARDS
 ================================================ */
-document.querySelectorAll('.project-card, .resume-card').forEach(card => {
+document.querySelectorAll('.project-card, .resume-card, .skills-card').forEach(card => {
     card.addEventListener('mousemove', e => {
         const rect   = card.getBoundingClientRect();
         const x      = e.clientX - rect.left;
         const y      = e.clientY - rect.top;
         const cx     = rect.width  / 2;
         const cy     = rect.height / 2;
-        const rotateX = ((y - cy) / cy) * -8;
-        const rotateY = ((x - cx) / cx) *  8;
-        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-        card.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2}px 30px rgba(108,63,224,0.25)`;
+        const rotateX = ((y - cy) / cy) * -6;
+        const rotateY = ((x - cx) / cx) *  6;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        card.style.boxShadow = `${-rotateY * 1.5}px ${rotateX * 1.5}px 25px rgba(37,99,235,0.12)`;
     });
     card.addEventListener('mouseleave', () => {
         card.style.transform  = '';
         card.style.boxShadow  = '';
-        card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+        card.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
     });
     card.addEventListener('mouseenter', () => {
         card.style.transition = 'none';
@@ -178,7 +195,7 @@ document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
         const rect = btn.getBoundingClientRect();
         const x    = e.clientX - rect.left - rect.width  / 2;
         const y    = e.clientY - rect.top  - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.4}px)`;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
     });
     btn.addEventListener('mouseleave', () => {
         btn.style.transform  = '';
@@ -190,67 +207,6 @@ document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
 });
 
 /* ================================================
-   [F] ANIMATED MESH GRADIENT BLOB
-================================================ */
-(function animateBlob() {
-    const blob = document.getElementById('hero-blob');
-    if (!blob) return;
-    let t = 0;
-    function loop() {
-        t += 0.004;
-        const x = 50 + Math.sin(t)       * 10;
-        const y = 50 + Math.cos(t * 0.7) * 10;
-        blob.style.background =
-            `radial-gradient(circle at ${x}% ${y}%, rgba(108,63,224,0.25) 0%, rgba(99,102,241,0.1) 40%, transparent 70%)`;
-        requestAnimationFrame(loop);
-    }
-    loop();
-})();
-
-/* ================================================
-   [E] CSS PARTICLE STARFIELD
-================================================ */
-(function createStars() {
-    const canvas  = document.getElementById('star-canvas');
-    if (!canvas) return;
-    const ctx     = canvas.getContext('2d');
-    let W, H, stars;
-
-    function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-    }
-
-    function initStars() {
-        stars = Array.from({ length: 120 }, () => ({
-            x:     Math.random() * W,
-            y:     Math.random() * H,
-            r:     Math.random() * 1.5 + 0.3,
-            speed: Math.random() * 0.3 + 0.05,
-            alpha: Math.random()
-        }));
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, W, H);
-        stars.forEach(s => {
-            s.alpha += s.speed * 0.02;
-            if (s.alpha > 1) { s.alpha = 0; s.x = Math.random() * W; s.y = Math.random() * H; }
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(200,200,255,${s.alpha})`;
-            ctx.fill();
-        });
-        requestAnimationFrame(draw);
-    }
-
-    resize();
-    initStars();
-    draw();
-    window.addEventListener('resize', () => { resize(); initStars(); });
-})();
-
-/* ================================================
    [J] INTERACTIVE TERMINAL
 ================================================ */
 const termToggle = document.getElementById('term-toggle');
@@ -259,11 +215,11 @@ const termInput  = document.getElementById('term-input');
 const termOutput = document.getElementById('term-output');
 
 const COMMANDS = {
-    help:    'ðŸ“‹ Available: <b>about</b>, <b>skills</b>, <b>contact</b>, <b>projects</b>, <b>clear</b>',
-    about:   'ðŸ‘¤ Owais â€” Full Stack Developer based in Karachi, Pakistan. Software Engineering student with real-world experience.',
-    skills:  'âš¡ React, Node.js, PHP, Laravel, Flutter, MongoDB, MySQL, Firebase, Git',
-    contact: 'ðŸ“§ owaais008@gmail.com | ðŸ“ž +92 371 3253890 | ðŸ ™ github.com/owaais008-hub',
-    projects:'🚀 Event Management System | Flux-solutions | Ticket-system',
+    help:    '📋 Available: <b>about</b>, <b>skills</b>, <b>contact</b>, <b>projects</b>, <b>clear</b>',
+    about:   '👤 Owais Ali — Full Stack Software Engineer based in Karachi, Pakistan. Software Engineering student with experience building scalability.',
+    skills:  '⚡ React.js, Next.js, Node.js, PHP, Laravel, Flutter, MongoDB, MySQL, Firebase, Git',
+    contact: '📧 owaais008@gmail.com | 📱 +92 371 3253890 | 🖥️ github.com/owaais008-hub',
+    projects:'🚀 Event Management System | Flux Solutions | AI-Powered Ticketing System',
     clear:   '__CLEAR__',
 };
 
@@ -294,7 +250,7 @@ if (termInput) {
         } else if (response) {
             termPrint(response);
         } else {
-            termPrint(`âš ï¸ Command not found: <b>${cmd}</b>. Type <b>help</b>.`);
+            termPrint(`⚠️ Command not found: <b>${cmd}</b>. Type <b>help</b>.`);
         }
     });
 }
@@ -336,31 +292,31 @@ const BOT_NAME = 'Owais AI';
 
 const KB = [
   { keys:['hello','hi','hey','greet','howdy','salam'],
-    ans:'🤖 Hi there! I\'m Owais AI, your virtual guide to learning about Owais — a passionate Full Stack Developer from Karachi, Pakistan. How can I help you today?' },
+    ans:'🤖 Hi there! I\'m Owais AI, your virtual guide to learning about Owais — a passionate Full Stack Software Engineer. How can I help you today?' },
   { keys:['who','owais','about','introduce','yourself'],
-    ans:'🤖 Owais is a Full Stack Developer and Software Engineering student based in Karachi, Pakistan. He has real-world experience at Maccansoft Corporation (Nov 2025) building scalable web apps with modern tech stacks.' },
+    ans:'🤖 Owais Ali is a Full Stack Software Engineer based in Karachi, Pakistan. He has real-world experience at Maccansoft Corporation building scalable, high-performance web applications.' },
   { keys:['skill','tech','stack','know','language','use'],
-    ans:'🤖 Owais\'s tech stack:\n\n<b>Frontend:</b> React.js, Next.js, JavaScript, HTML5, CSS3\n<b>Backend:</b> Node.js, Express, PHP, Laravel\n<b>Databases:</b> MongoDB, MySQL\n<b>Mobile:</b> Flutter (Dart)\n<b>Tools:</b> Git, GitHub, Firebase, REST APIs' },
+    ans:'🤖 Owais\'s tech stack:\n\n<b>Frontend:</b> React.js, Next.js, JavaScript, HTML5, CSS3\n<b>Backend:</b> Node.js, Express.js, PHP, Laravel\n<b>Databases:</b> MongoDB, MySQL\n<b>Mobile/Tools:</b> Flutter (Dart), Git, GitHub, Firebase, REST APIs, Redis' },
   { keys:['experience','work','job','company','maccansoft','intern'],
-    ans:'🤖 Owais worked as a <b>Full Stack Developer</b> at <b>Maccansoft Corporation</b> (November 2025). He built and maintained web applications, developed scalable features, fixed bugs, and improved system performance.' },
+    ans:'🤖 Owais worked as a <b>Full Stack Developer</b> at <b>Maccansoft Corporation</b>. He built and maintained web applications, developed scalable features, fixed bugs, and optimized backend query performance.' },
   { keys:['education','study','college','degree','aptech','alama','iqbal','school','university'],
-    ans:'🤖 Education:\n\n• <b>ACCP Diploma</b> — Aptech Metro Star Gate (2023–2026)\n• <b>Pre-Engineering (Intermediate)</b> — Allama Iqbal Boys College (2024–2026, expected May 2026)' },
+    ans:'🤖 Education:\n\n• <b>ACCP Diploma in Software Engineering</b> — Aptech Metro Star Gate (2023–2026)\n• <b>Intermediate in Pre-Engineering</b> — Allama Iqbal Boys College (2024–2026)' },
   { keys:['project','build','make','create','portfolio','ecommerce','task','app'],
-    ans:'🤖 Projects Owais has built:\n\n• <b>Event Management System</b> — A comprehensive platform for event discovery and management.\n• <b>Flux-solutions</b> — High-performance business workflow automation.\n• <b>Ticket-system</b> — AI-driven help desk and ticketing solution.\n\nYou can view them in the Projects section!' },
+    ans:'🤖 Projects Owais has built:\n\n• <b>Event Management System</b> — A platform for event registration and real-time tracking.\n• <b>Flux Solutions</b> — Enterprise business dashboard with automated workflows.\n• <b>AI-Powered Ticketing System</b> — Support ticketing application with channel integration.\n\nYou can check them in the Projects section!' },
   { keys:['contact','reach','email','phone','whatsapp','message','hire'],
-    ans:'🤖 You can reach Owais at:\n\n• ?? owaais008@gmail.com\n• ?? +92 371 3253890\n• ?? github.com/owaais008-hub\n• ?? linkedin.com/in/owaisali-fullstackdeveloper\n\nOr use the <b>Contact</b> section on this page!' },
+    ans:'🤖 You can reach Owais Ali at:\n\n• ✉️ owaais008@gmail.com\n• 📞 +92 371 3253890\n• 🖥️ github.com/owaais008-hub\n• 💼 linkedin.com/in/owaisali-fullstackdeveloper\n\nOr use the <b>Contact Form</b> directly on this page!' },
   { keys:['location','city','karachi','pakistan','where','live','based'],
     ans:'🤖 Owais is based in <b>Karachi, Pakistan</b>.' },
   { keys:['github','linkedin','twitter','facebook','social','profile'],
     ans:'🤖 Owais\'s social profiles:\n\n• GitHub: github.com/owaais008-hub\n• LinkedIn: linkedin.com/in/owaisali-fullstackdeveloper\n• Twitter/X: x.com/owaais008\n• Facebook: facebook.com/muhammad.owaaisalii' },
   { keys:['freelance','available','hire','open','freelancer'],
-    ans:'? Yes! Owais is <b>open to freelance work</b> and new opportunities. Feel free to reach out at owaais008@gmail.com or use the contact form!' },
+    ans:'💼 Yes! Owais is <b>open to freelance work</b> and contract opportunities. Feel free to contact him at owaais008@gmail.com or submit a message via the form!' },
   { keys:['react','node','flutter','php','laravel','mongodb','mysql','firebase'],
-    ans:'? Yes, Owais works with that technology! His full stack expertise spans React, Node.js, PHP, Laravel, Flutter, MongoDB, MySQL, Firebase, and more.' },
+    ans:'⚡ Yes, Owais is highly proficient in that technology! His full stack expertise spans React, Node.js, PHP, Laravel, Flutter, MongoDB, MySQL, Firebase, and more.' },
   { keys:['thanks','thank','nice','great','awesome','good','wow','cool'],
-    ans:'🤖 You\'re welcome! Feel free to ask me anything else about Owais or his work.' },
+    ans:'🤖 You\'re welcome! Feel free to ask me anything else about Owais Ali or his engineering experience.' },
   { keys:['bye','goodbye','exit','close','later','cya'],
-    ans:'🤖 Thanks for stopping by! Feel free to come back anytime. Have a great day!' },
+    ans:'🤖 Thanks for stopping by! Let me know if you need anything else. Have a fantastic day!' },
 ];
 
 function getTime() {
@@ -408,11 +364,11 @@ function removeTyping() {
 function botReply(query) {
   showTyping();
   const q = query.toLowerCase();
-  let answer = '?? I\'m not sure about that. Try asking about Owais\'s <b>skills</b>, <b>experience</b>, <b>projects</b>, or <b>contact</b> info!';
+  let answer = '🤖 I\'m not sure about that. Try asking about Owais\'s <b>skills</b>, <b>experience</b>, <b>projects</b>, or <b>contact</b> info!';
   for (const item of KB) {
     if (item.keys.some(k => q.includes(k))) { answer = item.ans; break; }
   }
-  setTimeout(() => { removeTyping(); addMsg(answer, 'bot'); }, 900 + Math.random() * 400);
+  setTimeout(() => { removeTyping(); addMsg(answer, 'bot'); }, 800 + Math.random() * 300);
 }
 
 function handleSend() {
@@ -430,7 +386,7 @@ if (chatToggle) {
     if (chatBadge) chatBadge.style.display = 'none';
     if (chatBox.classList.contains('show-chat') && chatMsgs.children.length === 0) {
       setTimeout(() => {
-        addMsg('?? Hi! I\'m <b>Owais AI</b>. Ask me anything about Owais — his skills, projects, experience, or how to contact him!', 'bot');
+        addMsg('👋 Hi! I\'m <b>Owais AI</b>. Ask me anything about Owais — his skills, projects, experience, or how to contact him!', 'bot');
       }, 300);
     }
   });
