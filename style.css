@@ -835,7 +835,7 @@ body:not(.dark-theme) .project-tags span {
 .p-bg-event { background-image: url("event-management.png"); }
 .p-bg-flux { background-image: url("flux-solutions.png"); }
 .p-bg-ticket { background-image: url("ticketing-system.png"); }
-.p-bg-exam { background-image: url("Online exam web.png"); }
+.p-bg-exam { background-image: url("proctored-exam-ai.png"); }
 .p-bg-toyshop { background-image: url("Toy-shop.png"); }
 
 /* ========================================================
