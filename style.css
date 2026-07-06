@@ -837,6 +837,7 @@ body:not(.dark-theme) .project-tags span {
 .p-bg-ticket { background-image: url("ticketing-system.png"); }
 .p-bg-exam { background-image: url("proctored-exam-ai.png"); }
 .p-bg-toyshop { background-image: url("Toy-shop.png"); }
+.p-bg-proctored-ai { background-image: url("procotoaced.png"); }
 
 /* ========================================================
    RESUME & TIMELINE SECTION
